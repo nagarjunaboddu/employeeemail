@@ -1,10 +1,7 @@
 package com.galvanize.employeeemail.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,11 +11,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "email_address")
 public class EmailAddress {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "emailId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "email_id")
     private Long id;
 
     @Column(name="email_type")
@@ -27,9 +25,10 @@ public class EmailAddress {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     @JsonIgnore
     private Employee employee;
+
 
 }
